@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Board implements Comparable<Board>
 {
-    private Random r = new Random(2431421);
+    private Random r = new Random();
     private int stateID = 0;
     private int parentID = -1;
     private int[] board;
@@ -257,13 +257,8 @@ public class Board implements Comparable<Board>
     @Override
     public String toString()
     {
-        String ret = "";
-        ret+=("ID: " +stateID);
-        if(!ltd)
-        {
-            ret+=("\nParent ID: "+parentID);
-        }
-        ret+="\n";
+        String ret = "Move: ";
+
         if(move == 0)
         {
             ret+="LEFT\n";
@@ -280,6 +275,12 @@ public class Board implements Comparable<Board>
         {
             ret+="UP\n";
         }
+        ret+=("ID: " +stateID);
+        if(!ltd)
+        {
+            ret+=("\nParent ID: "+parentID);
+        }
+        ret+="\n";
         for (int y = 0; y < this.height; y++)
         {
             for (int x = 0; x < this.width; x++)
@@ -291,12 +292,12 @@ public class Board implements Comparable<Board>
         if(!ltd)
         {
             ret += ("Depth: " + Integer.toString(depth) + "\n");
-            if(fn != 0) {
-                ret += ("G(n): " + Integer.toString(gn) + "\n");
-                ret += ("H(n): " + Integer.toString(hn) + "\n");
-            }
+            ret += ("G(n): " + Integer.toString(gn) + "\n");
+            ret += ("H(n): " + Integer.toString(hn) + "\n");
+            ret += ("F(n): " + Integer.toString(fn) + "\n");
             ret += ("Priority Value: " + Integer.toString(priorityValue) + "\n");
         }
+        ret+="--------------------------";
         return ret;
     }
 
@@ -309,7 +310,9 @@ public class Board implements Comparable<Board>
         Board board1 = (Board) o;
         return Arrays.equals(getBoard(), board1.getBoard());
     }
-
+    //used with hash array
+    //turns board into a string and returns it
+    //hash is saved for successive calls
     public String hash()
     {
         if (hash != null)

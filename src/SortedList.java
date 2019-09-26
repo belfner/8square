@@ -27,7 +27,7 @@ public class SortedList
                 left = mid + 1;
             }
         }
-
+//        System.out.println(((double)left)/((float)internalList.size()));
         internalList.add(left, b);
 
     }

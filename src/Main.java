@@ -50,16 +50,18 @@ public class Main
         System.out.println("Goal\n" + g);
 
         Solver s = new Solver(b.getBoard(), goal, width, height, sortingMethod);
-
-        for(int x=0;x<5000000;x++)
+        long t = System.currentTimeMillis();
+        for(int x=0;x<700000;x++)
         {
             if(s.step())
             {
-                System.out.println("----------Solved----------\n");
+                System.out.println("\n----------Solved----------\n");
                 s.printPath();
                 break;
             }
         }
+
+        System.out.println((double)(System.currentTimeMillis()-t)/1000.0);
     }
 
 }
